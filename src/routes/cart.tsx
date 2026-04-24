@@ -156,21 +156,39 @@ function CartPage() {
           <div className="bg-accent/40 rounded-lg border border-accent p-5">
             <div className="flex items-center gap-2 mb-2">
               <Share2 className="size-4 text-primary" />
-              <h2 className="font-bold">Share this cart</h2>
+              <h2 className="font-bold">Let someone pay for this</h2>
             </div>
             <p className="text-sm text-muted-foreground mb-3">
-              Send this link to a friend — they can checkout for you.
+              Share this link with a friend or family member. They'll see your cart and can check out for you.
             </p>
-            <div className="flex gap-2">
+            <div className="flex gap-2 mb-2">
               <input
                 value={shareUrl}
                 readOnly
+                onFocus={(e) => e.currentTarget.select()}
                 className="flex-1 h-10 px-3 rounded-md border border-input bg-background text-xs"
               />
-              <Button onClick={copyLink} variant="outline" size="icon">
+              <Button onClick={copyLink} variant="outline" size="icon" aria-label="Copy link">
                 <Copy className="size-4" />
               </Button>
             </div>
+            <div className="grid grid-cols-2 gap-2">
+              <Button onClick={copyLink} className="bg-primary hover:bg-primary-dark" size="sm">
+                <Copy className="size-3 mr-1" /> Copy link
+              </Button>
+              {cart && (
+                <Link to="/cart/$code" params={{ code: cart.share_code }} target="_blank">
+                  <Button variant="outline" size="sm" className="w-full">
+                    <Share2 className="size-3 mr-1" /> Preview
+                  </Button>
+                </Link>
+              )}
+            </div>
+            <ol className="mt-4 space-y-1.5 text-xs text-muted-foreground">
+              <li className="flex gap-2"><span className="font-bold text-primary">1.</span> Send the link via WhatsApp, email or DM</li>
+              <li className="flex gap-2"><span className="font-bold text-primary">2.</span> They open it and review your items</li>
+              <li className="flex gap-2"><span className="font-bold text-primary">3.</span> They check out — you get notified live</li>
+            </ol>
           </div>
         </div>
       </div>
