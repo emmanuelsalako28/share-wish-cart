@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { ShoppingCart, Gift, Search } from "lucide-react";
+import { ShoppingCart, Gift, Search, Camera } from "lucide-react";
 import { useCartStore } from "@/store/cart";
 import { useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
+import { toast } from "sonner";
 
 export function Header() {
   const itemCount = useCartStore((s) => s.itemCount());
@@ -24,13 +25,22 @@ export function Header() {
           </span>
         </Link>
 
-        <div className="flex-1 max-w-xl relative hidden md:block">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+        <div className="flex-1 max-w-xl relative hidden md:block group">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
           <input
             type="text"
             placeholder="Search products, brands and categories"
-            className="w-full pl-10 pr-4 h-10 rounded-md border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+            className="w-full pl-10 pr-12 h-10 rounded-md border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-all"
           />
+          <button 
+            title="SmartLens Visual Search"
+            onClick={() => toast.info("SmartLens visual search is coming soon!", {
+              description: "You'll be able to search products by taking a photo."
+            })}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary transition-colors p-1"
+          >
+            <Camera className="size-5" />
+          </button>
         </div>
 
         <nav className="flex items-center gap-1 ml-auto">
